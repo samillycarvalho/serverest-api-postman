@@ -12,25 +12,29 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-  
+
     steps:
       - uses: actions/checkout@v3
       - name: Step 1 Check version Newman and Node
-        run: 
-             newman --version
-             node --version
+        run: |
+          newman --version
+          node --version
 
       - name: Step 2 Install Newman-Reporter-Htmlextra
         run: npm install -g newman-reporter-htmlextra
 
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
 
       - name: Step 3 Execute collection
-        run: newman run ./login.json -e ./environment.json -g ./globals.json  -r htmlextra --reporter-htmlextra-export ./result/report.html
-      
+        run: newman run ./login.json -e ./environment.json -g ./globals.json -r htmlextra --reporter-htmlextra-export ./result/report.html
+
       - name: Step 4 Archive production artifacts
         uses: actions/upload-artifact@v3
         with:
-            
-             name: report
-             path: results/**
+          name: report
+          path: results/**
+
                
