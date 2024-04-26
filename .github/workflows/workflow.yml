@@ -21,7 +21,7 @@ jobs:
              node --version
 
       - name: Step 2 Install Newman-Reporter-Htmlextra
-        run: sudo npm install -g Newman-Reporter-Htmlextra
+        run: npm install -g Newman-Reporter-Htmlextra
 
       - name: Step 3 Execute collection
         run: newman run ./login.json -e ./environment.json -g ./globals.json --deley-request 1 --reporters cli, -r htmlextra --reporter-htmlextra-export ./result/report.html
