@@ -1,0 +1,168 @@
+{
+	"info": {
+		"_postman_id": "90341017-4a52-4df6-aba4-9472d229e7fa",
+		"name": "login serverest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "28120711"
+	},
+	"item": [
+		{
+			"name": "login com sucesso",
+			"item": [
+				{
+					"name": "signup",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Check is message exist\", function(){",
+									"    pm.expect(JSON.parse(responseBody).message).to.exist;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Check is id exist\", function(){",
+									"    pm.expect(JSON.parse(responseBody)._id).to.exist;",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function firstName() {",
+									"",
+									"    let firstName = [\"William\",\"Melissa\",\"Pablo\",\"João Vitor\",\"Vitor\",\"Hugo\",\"Arthur\",\"Maxon\",\"Maelle\",\"Maerica\",\"Ammy\",\"Coraline\",\"Juca\",\"Lucas\",\"Fernando\",\"Fernanda\",\"Angelica\",\"Laura\",\"Larissa\",\"Sterfane\",\"Stella\",\"Daniele\",\"Brenda\",\"Beatriz\",\"Juliene\",\"Julieta\",\"Maxine\",\"Maria\",\"Merie\",\"Tatiane\",\"Jucelino\",\"Vanderson\",\"Valon\",\"Vanessa\",\"Vannessa\",\"Villany\",\"Cassia\",\"Cassiano\",\"Bento\",\"Bianca\",\"Lucinda\",\"Jucelia\",\"Jucileia\",\"Pedro\",\"Carla\",\"Raissa\",\"Cassandra\",\"Sara\",\"Juçara\",\"Cecília\",\"Samilly\",\"Sanny\",\"Luara\",\"César\",\"Vinicios\",\"Ramon\",\"Hayton\",\"João Herbet\",\"Wendy\",\"Layra\",\"Carlos\",\"Daniel\",\"Hamillet\",\"Romeu\",\"Kaio\",\"Clara\",\"Clarita\",\"Virnoka\",\"Clariane\",\"Funny\",\"Sammy\",\"Sanira\",\"Taina\",\"Celia\",\"Cece\",\"Ive\",\"Marlena\",\"Madalena\",\"Bella\",\"Gigi\",\"Georgia\",\"Gigi Hadid\",\"Bella Hadid\",\"Barbara\",\"Tamara\",\"Tacila\",\"Jurema\",\"Joziane\",\"Josie\",\"Helena\",\"Elena\",\"Elaja\",\"Niklaus\",\"Rebeka\",\"Koll\",\"Karleio\",\"Alice\",\"Aline\",\"Ammy\",\"Kimberly\",\"Kim\",\"Kylie\",\"Kendall\",\"Elizabeth\",\"Jenna\",\"Selena\",\"Hailley\",\"Hellem\",\"Jenny\",\"Blair\",\"Serena\",\"Lariss\",\"Lana\",\"Lane\",\"Lanita\",\"Haily\",\"Tommy\",\"Josias\",\"Jesus\",\"Ammy lee\",\"Bety\",\"Bruna\",\"Valen\",\"Valentina\",\"Sophie\",\"Sonny\",\"Sol\",\"Lua\",\"Lina\",\"Luna\",\"Soli\",\"Salina\",\"Giselie\",\"Annamara\",\"Haine\",\"Milena\",\"Liasa\",\"Laisa\",\"Lalaliza\",\"Hunoo\",\"Somyn\",\"Suho\",\"Kaio\",\"Klarita\",\"Samita\",\"Sara\",\"Viena\",\"Siena\",\"Danie\",\"Gala\",\"Lady\",\"Fabiana\",\"Andrea\",\"Andre\",\"Marie\",\"Mari\",\"Francine\",\"Pame\",\"Juciene\",\"Lauren\",\"Lorena\",\"Lorelay\",\"Rory\",\"Julie\",\"Beck\",\"Olivia\",\"Haitor\",\"Tinken\",\"Danielle\",\"Gabi\",\"Kimb\"];",
+									"",
+									"",
+									"    let randomItem = firstName[Math.floor(Math.random() * firstName.length)];",
+									"",
+									"      return randomItem;",
+									"    ",
+									"}",
+									" ",
+									"   pm.environment.set(\"FirstName\", firstName());",
+									"",
+									"   function lastName() {",
+									"",
+									"    let lastName = [\"Alves\",\"Passos de Sousa\",\"Duarte Silva\",\"Irvine de Oliveira\",\"Clarck\",\"Alonso\",\"Afonso\",\"Rossi\",\"Esposito\",\"Russo\",\"Romano\",\"Brancos\",\"Ferrari\",\"Bianchi\",\"Marinho\",\"Giordano\",\"De Luca\",\"Bruno\",\"Rizzo\",\"Galo\",\"Ricci\",\"Caruso\",\"Mancini\",\"Ferrara\",\"Leão\",\"Colombo\",\"Santoro\",\"Conti\",\"Coppola\",\"Amato\",\"Bianco\",\"Vitale\",\"Lombardi\",\"Fiore\",\"Parisi\",\"De Rosa\",\"DAngelo\",\"Rinaldi\",\"De Santis\",\"Lombardo\",\"Martini\",\"Longo\",\"Serra\",\"Gentile\",\"Giuseppe\",\"Sorrentino\",\"Moretti\",\"De Angelis\",\"Fontana\",\"Napoli\",\"Valenti\",\"Rossini\",\"Benedetti\",\"Manca\",\"Pinto De Martino\",\"Pugliese\",\"Natale\",\"Rosso\",\"Palma\",\"Moro\",\"Bernardi\"];",
+									"",
+									"",
+									"    let randomItem = lastName[Math.floor(Math.random() * lastName.length)];",
+									"",
+									"      return randomItem;",
+									"    ",
+									"}",
+									" ",
+									"pm.environment.set(\"LastName\", lastName());",
+									"",
+									"pm.environment.set(\"nome\", pm.environment.get(\"FirstName\") + \" \" + pm.environment.get(\"LastName\"));",
+									"",
+									"function administrador() {",
+									"",
+									"    let administrador = [\"true\"];",
+									"    let randomItem = administrador[Math.floor(Math.random() *administrador.length)];",
+									"",
+									"      return randomItem;",
+									"",
+									"}",
+									" pm.environment.set(\"Administrador\", administrador());",
+									"",
+									"function providerMail() {",
+									"",
+									"    let providerMail = [\"@yahoo.com.br\", \"@gmail.com\",\"@outlook.com\",\"@hotmail.com\",\"@uol.com.br\",];",
+									"    let randomItem = providerMail[Math.floor(Math.random() * providerMail.length)];",
+									"",
+									"      return randomItem;",
+									"",
+									"}",
+									"",
+									"pm.environment.set(\"ProviderMail\", providerMail());",
+									"pm.environment.set(\"email\", pm.environment.get(\"FirstName\") + \"_\" + pm.variables.replaceIn('{{$guid}}') + pm.environment.get(\"ProviderMail\"));",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nome\": \"{{nome}}\",\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\",\n  \"administrador\": \"{{Administrador}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/usuarios"
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Check is message exist\", function(){",
+									"    pm.expect(JSON.parse(responseBody).message).to.exist;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Check is authorization exist\", function(){",
+									"    pm.expect(JSON.parse(responseBody).authorization).to.exist;",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/login"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
