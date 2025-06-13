@@ -1,41 +1,40 @@
 name: Login
- 
-on: 
 
+on: 
   push:
-   branches: [ "main" ]
+    branches: [ "main" ]
   pull_request:
-   branches: [ "main" ]
-   
+    branches: [ "main" ]
   workflow_dispatch: 
- 
+
 jobs:
   test:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
+      
       - name: Step 1 Check version Newman and Node
         run: |
-          newman --version
-          node --version
+          newman --version || echo "Newman não instalado ainda"
+          node --version || echo "Node não instalado ainda"
+
       - name: Setup Node.js 21
         uses: actions/setup-node@v2
         with:
           node-version: '21'
 
       - name: Step 2 Install Newman-Reporter-Htmlextra
-        run: npm install -g newman-reporter-htmlextra
-
-      
+        run: npm install -g newman newman-reporter-htmlextra
 
       - name: Step 3 Execute collection
-        run: newman run ./user.json -e ./environment.json -g ./globals.json -r htmlextra --reporter-htmlextra-export ./result/report.html
+        run: newman run ./user.json -e ./environment.json -g ./globals.json -r htmlextra --reporter-htmlextra-export ./results/report.html
 
       - name: Step 4 Archive production artifacts
         uses: actions/upload-artifact@v3
         with:
           name: report
           path: ./results/**
+
 
                
