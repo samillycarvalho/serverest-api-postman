@@ -1,5 +1,5 @@
 {
-	"id": "91b30a4d-da7e-41c5-8e69-fd4725e22cf1",
+	"id": "6fb4959d-d042-4428-8362-423da5342994",
 	"values": [
 		{
 			"key": "password",
@@ -8,14 +8,32 @@
 			"enabled": true
 		},
 		{
-			"key": "Msgcadastro",
-			"value": "\"Cadastro realizado com sucesso\"",
+			"key": "MsgRegister",
+			"value": "Cadastro realizado com sucesso",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "mail",
+			"value": "fulano@qa.com",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "MsgEdit",
+			"value": "Registro alterado com sucesso",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "MsgDelete",
+			"value": "Registro excluído com sucesso",
 			"type": "default",
 			"enabled": true
 		}
 	],
 	"name": "Globals",
 	"_postman_variable_scope": "globals",
-	"_postman_exported_at": "2024-04-26T19:47:04.431Z",
-	"_postman_exported_using": "Postman/10.24.15"
+	"_postman_exported_at": "2025-06-13T12:35:37.044Z",
+	"_postman_exported_using": "Postman/11.48.3"
 }
