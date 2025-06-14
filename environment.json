@@ -67,9 +67,69 @@
 			"value": "",
 			"type": "any",
 			"enabled": true
+		},
+		{
+			"key": "NameProduct",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "Number",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "Preço",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "Nome",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "Descrição",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "Quantidade",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "Product_id",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "DescriçãoEdit",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "PreçoEdit",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "QuantidadeEdit",
+			"value": "",
+			"type": "any",
+			"enabled": true
 		}
 	],
 	"_postman_variable_scope": "environment",
-	"_postman_exported_at": "2025-06-13T12:35:26.323Z",
+	"_postman_exported_at": "2025-06-14T20:49:22.875Z",
 	"_postman_exported_using": "Postman/11.48.3"
 }
