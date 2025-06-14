@@ -1,0 +1,433 @@
+{
+	"info": {
+		"_postman_id": "e17012b1-52e0-4ac0-be14-0915c6d22d76",
+		"name": "product",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38748982",
+		"_collection_link": "https://code-test-dads.postman.co/workspace/Serverest~9eb4e91d-fb66-448f-b200-a87081fffeee/collection/38748982-e17012b1-52e0-4ac0-be14-0915c6d22d76?action=share&source=collection_link&creator=38748982"
+	},
+	"item": [
+		{
+			"name": "login",
+			"item": [
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Check is message exist\", function(){",
+									"    pm.expect(pm.response.json().message).to.exist;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Check is authorization exist\", function(){",
+									"    pm.expect(pm.response.json().authorization).to.exist;",
+									"});",
+									"",
+									"pm.environment.set(\"Auth\", pm.response.json().authorization)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n  \"email\": \"{{mail}}\",\n  \"password\": \"{{password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}login",
+							"host": [
+								"{{url}}login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "happy_path",
+			"item": [
+				{
+					"name": "product_list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response contain a array and has name\", function(){",
+									"  ",
+									"    const jsonData = pm.response.json().produtos;",
+									"    pm.expect(Array.isArray(jsonData)).to.be.true;",
+									"    pm.expect(jsonData.length).to.be.above(0);",
+									"    pm.expect(jsonData[0]).to.have.property('nome');",
+									"    pm.expect(jsonData[0]).to.have.property('preco');",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}produtos",
+							"host": [
+								"{{url}}produtos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "product_register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Validate message\", function(){",
+									"    pm.expect(pm.globals.get(\"MsgRegister\")).to.eql(pm.response.json().message);;",
+									"});",
+									"pm.test(\"Id to exist\", function(){",
+									"    pm.expect(pm.response.json()._id).to.exist;",
+									"})",
+									"pm.environment.set(\"Product_id\", (pm.response.json()._id));",
+									"",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function nameProduct() {",
+									"  let nameProduct = [\"Books\", \"shoes\", \"Shirt\", \"Short\", \"Dress\", \"Pants\", \"Boot\", \"Sandal\", \"Closet\", \"Glasses\"];",
+									"    let randomItem = nameProduct[Math.floor(Math.random() * nameProduct.length)];",
+									"    return randomItem;",
+									"    ",
+									"}",
+									"pm.environment.set(\"Nome\", nameProduct());",
+									"",
+									"function Description() {",
+									"  let nameProduct = [\"Livros para ler com toda a família.\", \"Sapatos de couro legitimo.\", \"Blusas lindas e estilosas.\", \"Shorts maravilhosos e confortaveis.\", \"Vestidos para encontros.\", \"Calças jeans incriveis.\", \"Botas de couro legitimo.\", \"Sandalias lindas e delicadas para o verão.\", \"Closet Arrumados e coloridos.\", \"Oculos lindos com grau e sem grau para o verão.\"];",
+									"    let randomItem = nameProduct[Math.floor(Math.random() * nameProduct.length)];",
+									"    return randomItem;",
+									"    ",
+									"}",
+									"pm.environment.set(\"Descrição\", Description());",
+									"",
+									"function preços() {",
+									"    const minLength = 2;",
+									"    const maxLength = 4;",
+									"    const caracteres = '0123456789';",
+									"    const length = Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;",
+									"    let numero = '';",
+									"    for (let i = 0; i < length; i++) {",
+									"        numero += caracteres.charAt(Math.floor(Math.random() * caracteres.length));",
+									"    }",
+									"    return numero;",
+									"}",
+									"pm.environment.set(\"Preço\", preços());",
+									"",
+									"function amount() {",
+									"    const minLength = 2;",
+									"    const maxLength = 3;",
+									"    const caracteres = '0123456789';",
+									"    const length = Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;",
+									"    let numero = '';",
+									"    for (let i = 0; i < length; i++) {",
+									"        numero += caracteres.charAt(Math.floor(Math.random() * caracteres.length));",
+									"    }",
+									"    return numero;",
+									"}",
+									"pm.environment.set(\"Quantidade\", amount());"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nome\": \"{{Nome}}\",\n  \"preco\": \"{{Preço}}\",\n  \"descricao\": \"{{Descrição}}\",\n  \"quantidade\": \"{{Quantidade}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}produtos",
+							"host": [
+								"{{url}}produtos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "product_edit",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Validate message\", function(){",
+									"    pm.expect(pm.globals.get(\"MsgEdit\")).to.eql(pm.response.json().message);;",
+									"});",
+									"",
+									"",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function nameProduct() {",
+									"  let nameProduct = [\"BooksEd\", \"shoesEd\", \"ShirtEd\", \"ShortEd\", \"DressEd\", \"PantsEd\", \"BootEd\", \"SandalEd\", \"ClosetEd\", \"GlassesEd\"];",
+									"    let randomItem = nameProduct[Math.floor(Math.random() * nameProduct.length)];",
+									"    return randomItem;",
+									"    ",
+									"}",
+									"pm.environment.set(\"NomeEdit\", nameProduct());",
+									"",
+									"function Description() {",
+									"  let nameProduct = [\"Livros para ler com toda a família.\", \"Sapatos de couro legitimo.\", \"Blusas lindas e estilosas.\", \"Shorts maravilhosos e confortaveis.\", \"Vestidos para encontros.\", \"Calças jeans incriveis.\", \"Botas de couro legitimo.\", \"Sandalias lindas e delicadas para o verão.\", \"Closet Arrumados e coloridos.\", \"Oculos lindos com grau e sem grau para o verão.\"];",
+									"    let randomItem = nameProduct[Math.floor(Math.random() * nameProduct.length)];",
+									"    return randomItem;",
+									"    ",
+									"}",
+									"pm.environment.set(\"DescriçãoEdit\", Description());",
+									"",
+									"function preços() {",
+									"    const minLength = 2;",
+									"    const maxLength = 4;",
+									"    const caracteres = '0123456789';",
+									"    const length = Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;",
+									"    let numero = '';",
+									"    for (let i = 0; i < length; i++) {",
+									"        numero += caracteres.charAt(Math.floor(Math.random() * caracteres.length));",
+									"    }",
+									"    return numero;",
+									"}",
+									"pm.environment.set(\"PreçoEdit\", preços());",
+									"",
+									"function amount() {",
+									"    const minLength = 2;",
+									"    const maxLength = 3;",
+									"    const caracteres = '0123456789';",
+									"    const length = Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;",
+									"    let numero = '';",
+									"    for (let i = 0; i < length; i++) {",
+									"        numero += caracteres.charAt(Math.floor(Math.random() * caracteres.length));",
+									"    }",
+									"    return numero;",
+									"}",
+									"pm.environment.set(\"QuantidadeEdit\", amount());"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nome\": \"{{NomeEdit}}\",\n  \"preco\": \"{{PreçoEdit}}\",\n  \"descricao\": \"{{DescriçãoEdit}}\",\n  \"quantidade\": \"{{QuantidadeEdit}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}produtos/{{Product_id}}",
+							"host": [
+								"{{url}}produtos"
+							],
+							"path": [
+								"{{Product_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "product_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response contain a product\", function(){",
+									"  ",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('nome');",
+									"    pm.expect(jsonData).to.have.property('preco');",
+									"    pm.expect(jsonData).to.have.property('descricao')",
+									"    pm.expect(jsonData).to.have.property('quantidade')",
+									"    pm.expect(jsonData).to.have.property('_id')",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}produtos/{{Product_id}}",
+							"host": [
+								"{{url}}produtos"
+							],
+							"path": [
+								"{{Product_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Product_delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Validate Message\", function(){",
+									"    pm.expect(pm.globals.get(\"MsgDelete\")).to.be.eql(pm.response.json().message)",
+									"})",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}produtos/{{Product_id}}",
+							"host": [
+								"{{url}}produtos"
+							],
+							"path": [
+								"{{Product_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "{{Auth}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "Authorization",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
