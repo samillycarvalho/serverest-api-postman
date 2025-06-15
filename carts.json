@@ -1,0 +1,1497 @@
+{
+	"info": {
+		"_postman_id": "cd82f5f6-d668-4069-a7f3-2bd22f140529",
+		"name": "carts",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38748982",
+		"_collection_link": "https://code-test-dads.postman.co/workspace/Serverest~9eb4e91d-fb66-448f-b200-a87081fffeee/collection/38748982-cd82f5f6-d668-4069-a7f3-2bd22f140529?action=share&source=collection_link&creator=38748982"
+	},
+	"item": [
+		{
+			"name": "login",
+			"item": [
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Check is message exist\", function(){",
+									"    pm.expect(pm.response.json().message).to.exist;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Check is authorization exist\", function(){",
+									"    pm.expect(pm.response.json().authorization).to.exist;",
+									"});",
+									"",
+									"pm.environment.set(\"Auth\", pm.response.json().authorization)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n  \"email\": \"{{mail}}\",\n  \"password\": \"{{password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}login",
+							"host": [
+								"{{url}}login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "happy_path_conclude",
+			"item": [
+				{
+					"name": "user_register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Validate message\", function(){",
+									"    pm.expect(pm.globals.get(\"MsgRegister\")).to.eql(pm.response.json().message);;",
+									"});",
+									"pm.test(\"Id to exist\", function(){",
+									"    pm.expect(pm.response.json()._id).to.exist;",
+									"})",
+									"pm.environment.set(\"User_id\", (pm.response.json()._id));",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function firstName() {",
+									"",
+									"  let firstName = [\"William\",\"Melissa\",\"Pablo\",\"Vitor\",\"Hugo\",\"Arthur\",\"Maxon\",\"Maelle\",\"Maerica\",\"Ammy\",\"Coraline\",\"Juca\",\"Lucas\",\"Fernando\",\"Fernanda\",\"Angelica\",\"Laura\",\"Larissa\",\"Sterfane\",\"Stella\",\"Daniele\",\"Brenda\",\"Beatriz\",\"Juliene\",\"Julieta\",\"Maxine\",\"Maria\",\"Merie\",\"Tatiane\",\"Jucelino\",\"Vanderson\",\"Valon\",\"Vanessa\",\"Vannessa\",\"Villany\",\"Cassia\",\"Cassiano\",\"Bento\",\"Bianca\",\"Lucinda\",\"Jucelia\",\"Jucileia\",\"Pedro\",\"Carla\",\"Raissa\",\"Cassandra\",\"Sara\",\"Jucara\",\"Cecilia\",\"Samilly\",\"Sanny\",\"Luara\",\"Cesar\",\"Vinicios\",\"Ramon\",\"Hayton\",\"Wendy\",\"Layra\",\"Carlos\",\"Daniel\",\"Hamillet\",\"Romeu\",\"Kaio\",\"Clara\",\"Clarita\",\"Virnoka\",\"Clariane\",\"Funny\",\"Sammy\",\"Sanira\",\"Taina\",\"Celia\",\"Cece\",\"Ive\",\"Marlena\",\"Madalena\",\"Bella\",\"Gigi\",\"Georgia\",\"Barbara\",\"Tamara\",\"Tacila\",\"Jurema\",\"Joziane\",\"Josie\",\"Helena\",\"Elena\",\"Elaja\",\"Niklaus\",\"Rebeka\",\"Koll\",\"Karleio\",\"Alice\",\"Aline\",\"Kimberly\",\"Kim\",\"Kylie\",\"Kendall\",\"Elizabeth\",\"Jenna\",\"Selena\",\"Hailley\",\"Hellem\",\"Jenny\",\"Blair\",\"Serena\",\"Lariss\",\"Lana\",\"Lane\",\"Lanita\",\"Haily\",\"Tommy\",\"Josias\",\"Jesus\",\"Bety\",\"Bruna\",\"Valen\",\"Valentina\",\"Sophie\",\"Sonny\",\"Sol\",\"Lua\",\"Lina\",\"Luna\",\"Soli\",\"Salina\",\"Giselie\",\"Annamara\",\"Haine\",\"Milena\",\"Liasa\",\"Laisa\",\"Lalaliza\",\"Hunoo\",\"Somyn\",\"Suho\",\"Klarita\",\"Samita\",\"Viena\",\"Siena\",\"Danie\",\"Gala\",\"Lady\",\"Fabiana\",\"Andrea\",\"Andre\",\"Marie\",\"Mari\",\"Francine\",\"Pame\",\"Juciene\",\"Lauren\",\"Lorena\",\"Lorelay\",\"Rory\",\"Julie\",\"Beck\",\"Olivia\",\"Haitor\",\"Tinken\",\"Danielle\",\"Gabi\",\"Kimb\"];",
+									"",
+									"",
+									"",
+									"    let randomItem = firstName[Math.floor(Math.random() * firstName.length)];",
+									"",
+									"      return randomItem;",
+									"    ",
+									"}",
+									" ",
+									"   pm.environment.set(\"FirstName\", firstName());",
+									"",
+									"   function lastName() {",
+									"",
+									"    let lastName = [\"Alves\",\"Passos de Sousa\",\"Duarte Silva\",\"Irvine de Oliveira\",\"Clarck\",\"Alonso\",\"Afonso\",\"Rossi\",\"Esposito\",\"Russo\",\"Romano\",\"Brancos\",\"Ferrari\",\"Bianchi\",\"Marinho\",\"Giordano\",\"De Luca\",\"Bruno\",\"Rizzo\",\"Galo\",\"Ricci\",\"Caruso\",\"Mancini\",\"Ferrara\",\"Leão\",\"Colombo\",\"Santoro\",\"Conti\",\"Coppola\",\"Amato\",\"Bianco\",\"Vitale\",\"Lombardi\",\"Fiore\",\"Parisi\",\"De Rosa\",\"DAngelo\",\"Rinaldi\",\"De Santis\",\"Lombardo\",\"Martini\",\"Longo\",\"Serra\",\"Gentile\",\"Giuseppe\",\"Sorrentino\",\"Moretti\",\"De Angelis\",\"Fontana\",\"Napoli\",\"Valenti\",\"Rossini\",\"Benedetti\",\"Manca\",\"Pinto De Martino\",\"Pugliese\",\"Natale\",\"Rosso\",\"Palma\",\"Moro\",\"Bernardi\"];",
+									"",
+									"",
+									"    let randomItem = lastName[Math.floor(Math.random() * lastName.length)];",
+									"",
+									"      return randomItem;",
+									"    ",
+									"}",
+									" ",
+									"pm.environment.set(\"LastName\", lastName());",
+									"",
+									"pm.environment.set(\"nome\", pm.environment.get(\"FirstName\") + \" \" + pm.environment.get(\"LastName\"));",
+									"",
+									"function administrador() {",
+									"",
+									"    let administrador = [\"true\"];",
+									"    let randomItem = administrador[Math.floor(Math.random() *administrador.length)];",
+									"",
+									"      return randomItem;",
+									"",
+									"}",
+									" pm.environment.set(\"Administrador\", administrador());",
+									"",
+									"function providerMail() {",
+									"",
+									"    let providerMail = [\"@yahoo.com.br\", \"@gmail.com\",\"@outlook.com\",\"@hotmail.com\",\"@uol.com.br\",];",
+									"    let randomItem = providerMail[Math.floor(Math.random() * providerMail.length)];",
+									"",
+									"      return randomItem;",
+									"",
+									"}",
+									"",
+									"pm.environment.set(\"ProviderMail\", providerMail());",
+									"pm.environment.set(\"email\", pm.environment.get(\"FirstName\")+\"_\"+pm.variables.replaceIn('{{$guid}}')+pm.environment.get(\"ProviderMail\"));",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nome\": \"{{nome}}\",\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\",\n  \"administrador\": \"{{Administrador}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}usuarios",
+							"host": [
+								"{{url}}usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user_login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Check is message exist\", function(){",
+									"    pm.expect(JSON.parse(responseBody).message).to.exist;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Check is authorization exist\", function(){",
+									"    pm.expect(JSON.parse(responseBody).authorization).to.exist;",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}login",
+							"host": [
+								"{{url}}login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "1_product_register_conclude",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function nameProduct() {",
+									"  let nameProduct = [\"Bookscc\", \"shoescc\", \"Shirtcc\", \"Shortcc\", \"Dresscc\", \"Pantscc\", \"Bootcc\", \"Sandalcc\", \"Closetcc\", \"Glassescccc\"];",
+									"    let randomItem = nameProduct[Math.floor(Math.random() * nameProduct.length)];",
+									"    return randomItem;",
+									"    ",
+									"}",
+									"pm.environment.set(\"Nome\", nameProduct());",
+									"",
+									"function number() {",
+									"    const minLength = 2;",
+									"    const maxLength = 3;",
+									"    const caracteres = '0123456789';",
+									"    const length = Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;",
+									"    let numero = '';",
+									"    for (let i = 0; i < length; i++) {",
+									"        numero += caracteres.charAt(Math.floor(Math.random() * caracteres.length));",
+									"    }",
+									"    return numero;",
+									"}",
+									"pm.environment.set(\"Number\", number());",
+									"pm.environment.set(\"NomeProduto\", pm.environment.get(\"Nome\") + \"_\" + pm.environment.get(\"Number\"));",
+									"function Description() {",
+									"  let nameProduct = [\"Livros para ler com toda a família.\", \"Sapatos de couro legitimo.\", \"Blusas lindas e estilosas.\", \"Shorts maravilhosos e confortaveis.\", \"Vestidos para encontros.\", \"Calças jeans incriveis.\", \"Botas de couro legitimo.\", \"Sandalias lindas e delicadas para o verão.\", \"Closet Arrumados e coloridos.\", \"Oculos lindos com grau e sem grau para o verão.\"];",
+									"    let randomItem = nameProduct[Math.floor(Math.random() * nameProduct.length)];",
+									"    return randomItem;",
+									"    ",
+									"}",
+									"pm.environment.set(\"Descrição\", Description());",
+									"",
+									"function preços() {",
+									"    const minLength = 2;",
+									"    const maxLength = 4;",
+									"    const caracteres = '0123456789';",
+									"    const length = Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;",
+									"    let numero = '';",
+									"    for (let i = 0; i < length; i++) {",
+									"        numero += caracteres.charAt(Math.floor(Math.random() * caracteres.length));",
+									"    }",
+									"    return numero;",
+									"}",
+									"pm.environment.set(\"Preço\", preços());",
+									"",
+									"function amount() {",
+									"    const minLength = 1;",
+									"    const maxLength = 2;",
+									"    const caracteres = '123456789';",
+									"    const length = Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;",
+									"    let numero = '';",
+									"    for (let i = 0; i < length; i++) {",
+									"        numero += caracteres.charAt(Math.floor(Math.random() * caracteres.length));",
+									"    }",
+									"    return numero;",
+									"}",
+									"pm.environment.set(\"Quantidade\", amount());"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Validate message\", function(){",
+									"    pm.expect(pm.globals.get(\"MsgRegister\")).to.eql(pm.response.json().message);;",
+									"});",
+									"pm.test(\"Id to exist\", function(){",
+									"    pm.expect(pm.response.json()._id).to.exist;",
+									"})",
+									"pm.environment.set(\"1Product_id_conclude\", (pm.response.json()._id));",
+									"",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nome\": \"{{NomeProduto}}\",\n  \"preco\": \"{{Preço}}\",\n  \"descricao\": \"{{Descrição}}\",\n  \"quantidade\": \"{{Quantidade}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}produtos",
+							"host": [
+								"{{url}}produtos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2_product_register_conclude",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Validate message\", function(){",
+									"    pm.expect(pm.globals.get(\"MsgRegister\")).to.eql(pm.response.json().message);;",
+									"});",
+									"pm.test(\"Id to exist\", function(){",
+									"    pm.expect(pm.response.json()._id).to.exist;",
+									"})",
+									"pm.environment.set(\"2Product_id_conclude\", (pm.response.json()._id));",
+									"",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function nameProduct() {",
+									"  let nameProduct = [\"Bookscc\", \"shoescc\", \"Shirtcc\", \"Shortcc\", \"Dresscc\", \"Pantscc\", \"Bootcc\", \"Sandalcc\", \"Closetcc\", \"Glassescccc\"];",
+									"    let randomItem = nameProduct[Math.floor(Math.random() * nameProduct.length)];",
+									"    return randomItem;",
+									"    ",
+									"}",
+									"pm.environment.set(\"Nome\", nameProduct());",
+									"",
+									"function number() {",
+									"    const minLength = 2;",
+									"    const maxLength = 3;",
+									"    const caracteres = '0123456789';",
+									"    const length = Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;",
+									"    let numero = '';",
+									"    for (let i = 0; i < length; i++) {",
+									"        numero += caracteres.charAt(Math.floor(Math.random() * caracteres.length));",
+									"    }",
+									"    return numero;",
+									"}",
+									"pm.environment.set(\"Number\", number());",
+									"pm.environment.set(\"NomeProduto\", pm.environment.get(\"Nome\") + \"_\" + pm.environment.get(\"Number\"));",
+									"",
+									"function Description() {",
+									"  let nameProduct = [\"Livros para ler com toda a família.\", \"Sapatos de couro legitimo.\", \"Blusas lindas e estilosas.\", \"Shorts maravilhosos e confortaveis.\", \"Vestidos para encontros.\", \"Calças jeans incriveis.\", \"Botas de couro legitimo.\", \"Sandalias lindas e delicadas para o verão.\", \"Closet Arrumados e coloridos.\", \"Oculos lindos com grau e sem grau para o verão.\"];",
+									"    let randomItem = nameProduct[Math.floor(Math.random() * nameProduct.length)];",
+									"    return randomItem;",
+									"    ",
+									"}",
+									"pm.environment.set(\"Descrição\", Description());",
+									"",
+									"function preços() {",
+									"    const minLength = 2;",
+									"    const maxLength = 4;",
+									"    const caracteres = '0123456789';",
+									"    const length = Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;",
+									"    let numero = '';",
+									"    for (let i = 0; i < length; i++) {",
+									"        numero += caracteres.charAt(Math.floor(Math.random() * caracteres.length));",
+									"    }",
+									"    return numero;",
+									"}",
+									"pm.environment.set(\"Preço\", preços());",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nome\": \"{{NomeProduto}}\",\n  \"preco\": \"{{Preço}}\",\n  \"descricao\": \"{{Descrição}}\",\n  \"quantidade\": \"{{Quantidade}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}produtos",
+							"host": [
+								"{{url}}produtos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "carts_register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Validate message\", function(){",
+									"    pm.expect(pm.globals.get(\"MsgRegister\")).to.eql(pm.response.json().message);;",
+									"});",
+									"pm.test(\"Id to exist\", function(){",
+									"    pm.expect(pm.response.json()._id).to.exist;",
+									"})",
+									"pm.environment.set(\"Carts_id\", (pm.response.json()._id));",
+									"",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"produtos\": [\n    {\n      \"idProduto\": \"{{1Product_id_conclude}}\",\n      \"quantidade\": \"{{Quantidade}}\"\n    },\n    {\n      \"idProduto\": \"{{2Product_id_conclude}}\",\n      \"quantidade\": \"{{Quantidade}}\"\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}carrinhos",
+							"host": [
+								"{{url}}carrinhos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "carts_list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response contain a array has carts\", function(){",
+									"  ",
+									"    const jsonData = pm.response.json().carrinhos[0];",
+									"    pm.expect(jsonData).to.have.property('precoTotal');",
+									"    pm.expect(jsonData).to.have.property('quantidadeTotal');",
+									"    pm.expect(jsonData).to.have.property('idUsuario');",
+									"    pm.expect(jsonData).to.have.property('_id');",
+									"});",
+									"pm.test(\"Response contain a array has productos\", function(){",
+									"  ",
+									"    const jsonData = pm.response.json().carrinhos[0].produtos[0];",
+									"    pm.expect(jsonData).to.have.property('idProduto');",
+									"    pm.expect(jsonData).to.have.property('quantidade');",
+									"    pm.expect(jsonData).to.have.property('precoUnitario');",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}carrinhos",
+							"host": [
+								"{{url}}carrinhos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "carts_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response contain a product\", function(){",
+									"  ",
+									"    const jsonData = pm.response.json().produtos[0];",
+									"    pm.expect(jsonData).to.have.property('precoUnitario')",
+									"    pm.expect(jsonData).to.have.property('quantidade')",
+									"    pm.expect(jsonData).to.have.property('idProduto')",
+									"});",
+									"pm.test(\"Response contain a total price and total quantity \", function(){",
+									"  ",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('precoTotal')",
+									"    pm.expect(jsonData).to.have.property('quantidadeTotal')",
+									"    pm.expect(jsonData).to.have.property('idUsuario')",
+									"    pm.expect(jsonData).to.have.property('_id')",
+									"    });",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}carrinhos/{{Carts_id}}",
+							"host": [
+								"{{url}}carrinhos"
+							],
+							"path": [
+								"{{Carts_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "carts_conclude",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Validate message\", function(){",
+									"    pm.expect(pm.globals.get(\"MsgDelete\")).to.eql(pm.response.json().message);;",
+									"});",
+									"",
+									"",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}carrinhos/concluir-compra",
+							"host": [
+								"{{url}}carrinhos"
+							],
+							"path": [
+								"concluir-compra"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Validate Message\", function(){",
+									"    pm.expect(pm.globals.get(\"MsgDelete\")).to.be.eql(pm.response.json().message)",
+									"})",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}usuarios/{{User_id}}",
+							"host": [
+								"{{url}}usuarios"
+							],
+							"path": [
+								"{{User_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "1_Product_delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Validate Message\", function(){",
+									"    pm.expect(pm.globals.get(\"MsgDelete\")).to.be.eql(pm.response.json().message)",
+									"})",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}produtos/{{1Product_id_conclude}}",
+							"host": [
+								"{{url}}produtos"
+							],
+							"path": [
+								"{{1Product_id_conclude}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2_Product_delete",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Validate Message\", function(){",
+									"    pm.expect(pm.globals.get(\"MsgDelete\")).to.be.eql(pm.response.json().message)",
+									"})",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}produtos/{{2Product_id_conclude}}",
+							"host": [
+								"{{url}}produtos"
+							],
+							"path": [
+								"{{2Product_id_conclude}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "happy_path_cancel",
+			"item": [
+				{
+					"name": "user_register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Validate message\", function(){",
+									"    pm.expect(pm.globals.get(\"MsgRegister\")).to.eql(pm.response.json().message);;",
+									"});",
+									"pm.test(\"Id to exist\", function(){",
+									"    pm.expect(pm.response.json()._id).to.exist;",
+									"})",
+									"pm.environment.set(\"User_id\", (pm.response.json()._id));",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function firstName() {",
+									"",
+									"  let firstName = [\"William\",\"Melissa\",\"Pablo\",\"Vitor\",\"Hugo\",\"Arthur\",\"Maxon\",\"Maelle\",\"Maerica\",\"Ammy\",\"Coraline\",\"Juca\",\"Lucas\",\"Fernando\",\"Fernanda\",\"Angelica\",\"Laura\",\"Larissa\",\"Sterfane\",\"Stella\",\"Daniele\",\"Brenda\",\"Beatriz\",\"Juliene\",\"Julieta\",\"Maxine\",\"Maria\",\"Merie\",\"Tatiane\",\"Jucelino\",\"Vanderson\",\"Valon\",\"Vanessa\",\"Vannessa\",\"Villany\",\"Cassia\",\"Cassiano\",\"Bento\",\"Bianca\",\"Lucinda\",\"Jucelia\",\"Jucileia\",\"Pedro\",\"Carla\",\"Raissa\",\"Cassandra\",\"Sara\",\"Jucara\",\"Cecilia\",\"Samilly\",\"Sanny\",\"Luara\",\"Cesar\",\"Vinicios\",\"Ramon\",\"Hayton\",\"Wendy\",\"Layra\",\"Carlos\",\"Daniel\",\"Hamillet\",\"Romeu\",\"Kaio\",\"Clara\",\"Clarita\",\"Virnoka\",\"Clariane\",\"Funny\",\"Sammy\",\"Sanira\",\"Taina\",\"Celia\",\"Cece\",\"Ive\",\"Marlena\",\"Madalena\",\"Bella\",\"Gigi\",\"Georgia\",\"Barbara\",\"Tamara\",\"Tacila\",\"Jurema\",\"Joziane\",\"Josie\",\"Helena\",\"Elena\",\"Elaja\",\"Niklaus\",\"Rebeka\",\"Koll\",\"Karleio\",\"Alice\",\"Aline\",\"Kimberly\",\"Kim\",\"Kylie\",\"Kendall\",\"Elizabeth\",\"Jenna\",\"Selena\",\"Hailley\",\"Hellem\",\"Jenny\",\"Blair\",\"Serena\",\"Lariss\",\"Lana\",\"Lane\",\"Lanita\",\"Haily\",\"Tommy\",\"Josias\",\"Jesus\",\"Bety\",\"Bruna\",\"Valen\",\"Valentina\",\"Sophie\",\"Sonny\",\"Sol\",\"Lua\",\"Lina\",\"Luna\",\"Soli\",\"Salina\",\"Giselie\",\"Annamara\",\"Haine\",\"Milena\",\"Liasa\",\"Laisa\",\"Lalaliza\",\"Hunoo\",\"Somyn\",\"Suho\",\"Klarita\",\"Samita\",\"Viena\",\"Siena\",\"Danie\",\"Gala\",\"Lady\",\"Fabiana\",\"Andrea\",\"Andre\",\"Marie\",\"Mari\",\"Francine\",\"Pame\",\"Juciene\",\"Lauren\",\"Lorena\",\"Lorelay\",\"Rory\",\"Julie\",\"Beck\",\"Olivia\",\"Haitor\",\"Tinken\",\"Danielle\",\"Gabi\",\"Kimb\"];",
+									"",
+									"",
+									"",
+									"    let randomItem = firstName[Math.floor(Math.random() * firstName.length)];",
+									"",
+									"      return randomItem;",
+									"    ",
+									"}",
+									" ",
+									"   pm.environment.set(\"FirstName\", firstName());",
+									"",
+									"   function lastName() {",
+									"",
+									"    let lastName = [\"Alves\",\"Passos de Sousa\",\"Duarte Silva\",\"Irvine de Oliveira\",\"Clarck\",\"Alonso\",\"Afonso\",\"Rossi\",\"Esposito\",\"Russo\",\"Romano\",\"Brancos\",\"Ferrari\",\"Bianchi\",\"Marinho\",\"Giordano\",\"De Luca\",\"Bruno\",\"Rizzo\",\"Galo\",\"Ricci\",\"Caruso\",\"Mancini\",\"Ferrara\",\"Leão\",\"Colombo\",\"Santoro\",\"Conti\",\"Coppola\",\"Amato\",\"Bianco\",\"Vitale\",\"Lombardi\",\"Fiore\",\"Parisi\",\"De Rosa\",\"DAngelo\",\"Rinaldi\",\"De Santis\",\"Lombardo\",\"Martini\",\"Longo\",\"Serra\",\"Gentile\",\"Giuseppe\",\"Sorrentino\",\"Moretti\",\"De Angelis\",\"Fontana\",\"Napoli\",\"Valenti\",\"Rossini\",\"Benedetti\",\"Manca\",\"Pinto De Martino\",\"Pugliese\",\"Natale\",\"Rosso\",\"Palma\",\"Moro\",\"Bernardi\"];",
+									"",
+									"",
+									"    let randomItem = lastName[Math.floor(Math.random() * lastName.length)];",
+									"",
+									"      return randomItem;",
+									"    ",
+									"}",
+									" ",
+									"pm.environment.set(\"LastName\", lastName());",
+									"",
+									"pm.environment.set(\"nome\", pm.environment.get(\"FirstName\") + \" \" + pm.environment.get(\"LastName\"));",
+									"",
+									"function administrador() {",
+									"",
+									"    let administrador = [\"true\"];",
+									"    let randomItem = administrador[Math.floor(Math.random() *administrador.length)];",
+									"",
+									"      return randomItem;",
+									"",
+									"}",
+									" pm.environment.set(\"Administrador\", administrador());",
+									"",
+									"function providerMail() {",
+									"",
+									"    let providerMail = [\"@yahoo.com.br\", \"@gmail.com\",\"@outlook.com\",\"@hotmail.com\",\"@uol.com.br\",];",
+									"    let randomItem = providerMail[Math.floor(Math.random() * providerMail.length)];",
+									"",
+									"      return randomItem;",
+									"",
+									"}",
+									"",
+									"pm.environment.set(\"ProviderMail\", providerMail());",
+									"pm.environment.set(\"email\", pm.environment.get(\"FirstName\")+\"_\"+pm.variables.replaceIn('{{$guid}}')+pm.environment.get(\"ProviderMail\"));",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nome\": \"{{nome}}\",\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\",\n  \"administrador\": \"{{Administrador}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}usuarios",
+							"host": [
+								"{{url}}usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user_login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Check is message exist\", function(){",
+									"    pm.expect(JSON.parse(responseBody).message).to.exist;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Check is authorization exist\", function(){",
+									"    pm.expect(JSON.parse(responseBody).authorization).to.exist;",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}login",
+							"host": [
+								"{{url}}login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "1_product_register_cancel",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Validate message\", function(){",
+									"    pm.expect(pm.globals.get(\"MsgRegister\")).to.eql(pm.response.json().message);;",
+									"});",
+									"pm.test(\"Id to exist\", function(){",
+									"    pm.expect(pm.response.json()._id).to.exist;",
+									"})",
+									"pm.environment.set(\"1Product_id_cancel\", (pm.response.json()._id));",
+									"",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function nameProduct() {",
+									"  let nameProduct = [\"Bookscc\", \"shoescc\", \"Shirtcc\", \"Shortcc\", \"Dresscc\", \"Pantscc\", \"Bootcc\", \"Sandalcc\", \"Closetcc\", \"Glassescccc\"];",
+									"    let randomItem = nameProduct[Math.floor(Math.random() * nameProduct.length)];",
+									"    return randomItem;",
+									"    ",
+									"}",
+									"pm.environment.set(\"Nome\", nameProduct());",
+									"",
+									"function number() {",
+									"    const minLength = 2;",
+									"    const maxLength = 3;",
+									"    const caracteres = '0123456789';",
+									"    const length = Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;",
+									"    let numero = '';",
+									"    for (let i = 0; i < length; i++) {",
+									"        numero += caracteres.charAt(Math.floor(Math.random() * caracteres.length));",
+									"    }",
+									"    return numero;",
+									"}",
+									"pm.environment.set(\"Number\", number());",
+									"pm.environment.set(\"NomeProduto\", pm.environment.get(\"Nome\") + \"_\" + pm.environment.get(\"Number\"));",
+									"",
+									"function Description() {",
+									"  let nameProduct = [\"Livros para ler com toda a família.\", \"Sapatos de couro legitimo.\", \"Blusas lindas e estilosas.\", \"Shorts maravilhosos e confortaveis.\", \"Vestidos para encontros.\", \"Calças jeans incriveis.\", \"Botas de couro legitimo.\", \"Sandalias lindas e delicadas para o verão.\", \"Closet Arrumados e coloridos.\", \"Oculos lindos com grau e sem grau para o verão.\"];",
+									"    let randomItem = nameProduct[Math.floor(Math.random() * nameProduct.length)];",
+									"    return randomItem;",
+									"    ",
+									"}",
+									"pm.environment.set(\"Descrição\", Description());",
+									"",
+									"function preços() {",
+									"    const minLength = 2;",
+									"    const maxLength = 4;",
+									"    const caracteres = '0123456789';",
+									"    const length = Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;",
+									"    let numero = '';",
+									"    for (let i = 0; i < length; i++) {",
+									"        numero += caracteres.charAt(Math.floor(Math.random() * caracteres.length));",
+									"    }",
+									"    return numero;",
+									"}",
+									"pm.environment.set(\"Preço\", preços());",
+									"",
+									"function amount() {",
+									"    const minLength = 2;",
+									"    const maxLength = 3;",
+									"    const caracteres = '0123456789';",
+									"    const length = Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;",
+									"    let numero = '';",
+									"    for (let i = 0; i < length; i++) {",
+									"        numero += caracteres.charAt(Math.floor(Math.random() * caracteres.length));",
+									"    }",
+									"    return numero;",
+									"}",
+									"pm.environment.set(\"Quantidade\", amount());"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nome\": \"{{NomeProduto}}\",\n  \"preco\": \"{{Preço}}\",\n  \"descricao\": \"{{Descrição}}\",\n  \"quantidade\": \"{{Quantidade}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}produtos",
+							"host": [
+								"{{url}}produtos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2_product_register_cancel",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Validate message\", function(){",
+									"    pm.expect(pm.globals.get(\"MsgRegister\")).to.eql(pm.response.json().message);;",
+									"});",
+									"pm.test(\"Id to exist\", function(){",
+									"    pm.expect(pm.response.json()._id).to.exist;",
+									"})",
+									"pm.environment.set(\"2Product_id_cancel\", (pm.response.json()._id));",
+									"",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function nameProduct() {",
+									"  let nameProduct = [\"Bookscc\", \"shoescc\", \"Shirtcc\", \"Shortcc\", \"Dresscc\", \"Pantscc\", \"Bootcc\", \"Sandalcc\", \"Closetcc\", \"Glassescccc\"];",
+									"    let randomItem = nameProduct[Math.floor(Math.random() * nameProduct.length)];",
+									"    return randomItem;",
+									"    ",
+									"}",
+									"pm.environment.set(\"Nome\", nameProduct());",
+									"",
+									"function number() {",
+									"    const minLength = 2;",
+									"    const maxLength = 3;",
+									"    const caracteres = '0123456789';",
+									"    const length = Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;",
+									"    let numero = '';",
+									"    for (let i = 0; i < length; i++) {",
+									"        numero += caracteres.charAt(Math.floor(Math.random() * caracteres.length));",
+									"    }",
+									"    return numero;",
+									"}",
+									"pm.environment.set(\"Number\", number());",
+									"pm.environment.set(\"NomeProduto\", pm.environment.get(\"Nome\") + \"_\" + pm.environment.get(\"Number\"));",
+									"function Description() {",
+									"  let nameProduct = [\"Livros para ler com toda a família.\", \"Sapatos de couro legitimo.\", \"Blusas lindas e estilosas.\", \"Shorts maravilhosos e confortaveis.\", \"Vestidos para encontros.\", \"Calças jeans incriveis.\", \"Botas de couro legitimo.\", \"Sandalias lindas e delicadas para o verão.\", \"Closet Arrumados e coloridos.\", \"Oculos lindos com grau e sem grau para o verão.\"];",
+									"    let randomItem = nameProduct[Math.floor(Math.random() * nameProduct.length)];",
+									"    return randomItem;",
+									"    ",
+									"}",
+									"pm.environment.set(\"Descrição\", Description());",
+									"",
+									"function preços() {",
+									"    const minLength = 2;",
+									"    const maxLength = 4;",
+									"    const caracteres = '0123456789';",
+									"    const length = Math.floor(Math.random() * (maxLength - minLength + 1)) + minLength;",
+									"    let numero = '';",
+									"    for (let i = 0; i < length; i++) {",
+									"        numero += caracteres.charAt(Math.floor(Math.random() * caracteres.length));",
+									"    }",
+									"    return numero;",
+									"}",
+									"pm.environment.set(\"Preço\", preços());",
+									"",
+									";"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nome\": \"{{NomeProduto}}\",\n  \"preco\": \"{{Preço}}\",\n  \"descricao\": \"{{Descrição}}\",\n  \"quantidade\": \"{{Quantidade}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}produtos",
+							"host": [
+								"{{url}}produtos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "carts_register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Validate message\", function(){",
+									"    pm.expect(pm.globals.get(\"MsgRegister\")).to.eql(pm.response.json().message);;",
+									"});",
+									"pm.test(\"Id to exist\", function(){",
+									"    pm.expect(pm.response.json()._id).to.exist;",
+									"})",
+									"pm.environment.set(\"Carts_id\", (pm.response.json()._id));",
+									"",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"produtos\": [\n    {\n      \"idProduto\": \"{{1Product_id_cancel}}\",\n      \"quantidade\": \"{{Quantidade}}\"\n    },\n    {\n      \"idProduto\": \"{{2Product_id_cancel}}\",\n      \"quantidade\": \"{{Quantidade}}\"\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}carrinhos",
+							"host": [
+								"{{url}}carrinhos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "carts_list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response contain a array has carts\", function(){",
+									"  ",
+									"    const jsonData = pm.response.json().carrinhos[0];",
+									"    pm.expect(jsonData).to.have.property('precoTotal');",
+									"    pm.expect(jsonData).to.have.property('quantidadeTotal');",
+									"    pm.expect(jsonData).to.have.property('idUsuario');",
+									"    pm.expect(jsonData).to.have.property('_id');",
+									"});",
+									"pm.test(\"Response contain a array has productos\", function(){",
+									"  ",
+									"    const jsonData = pm.response.json().carrinhos[0].produtos[0];",
+									"    pm.expect(jsonData).to.have.property('idProduto');",
+									"    pm.expect(jsonData).to.have.property('quantidade');",
+									"    pm.expect(jsonData).to.have.property('precoUnitario');",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}carrinhos",
+							"host": [
+								"{{url}}carrinhos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "carts_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response contain a product\", function(){",
+									"  ",
+									"    const jsonData = pm.response.json().produtos[0];",
+									"    pm.expect(jsonData).to.have.property('precoUnitario')",
+									"    pm.expect(jsonData).to.have.property('quantidade')",
+									"    pm.expect(jsonData).to.have.property('idProduto')",
+									"});",
+									"pm.test(\"Response contain a total price and total quantity \", function(){",
+									"  ",
+									"    const jsonData = pm.response.json();",
+									"    pm.expect(jsonData).to.have.property('precoTotal')",
+									"    pm.expect(jsonData).to.have.property('quantidadeTotal')",
+									"    pm.expect(jsonData).to.have.property('idUsuario')",
+									"    pm.expect(jsonData).to.have.property('_id')",
+									"    });",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}carrinhos/{{Carts_id}}",
+							"host": [
+								"{{url}}carrinhos"
+							],
+							"path": [
+								"{{Carts_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "carts_cancel",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Validate Message\", function(){",
+									"    pm.expect(pm.globals.get(\"MsgCancel\")).to.be.eql(pm.response.json().message)",
+									"})",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}carrinhos/cancelar-compra",
+							"host": [
+								"{{url}}carrinhos"
+							],
+							"path": [
+								"cancelar-compra"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "1_Product_delete_cancel",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Validate Message\", function(){",
+									"    pm.expect(pm.globals.get(\"MsgDelete\")).to.be.eql(pm.response.json().message)",
+									"})",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}produtos/{{1Product_id_cancel}}",
+							"host": [
+								"{{url}}produtos"
+							],
+							"path": [
+								"{{1Product_id_cancel}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2_Product_delete_cancel",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Validate Message\", function(){",
+									"    pm.expect(pm.globals.get(\"MsgDelete\")).to.be.eql(pm.response.json().message)",
+									"})",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}produtos/{{2Product_id_cancel}}",
+							"host": [
+								"{{url}}produtos"
+							],
+							"path": [
+								"{{2Product_id_cancel}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user_id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Validate Message\", function(){",
+									"    pm.expect(pm.globals.get(\"MsgDelete\")).to.be.eql(pm.response.json().message)",
+									"})",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}usuarios/{{User_id}}",
+							"host": [
+								"{{url}}usuarios"
+							],
+							"path": [
+								"{{User_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "{{Auth}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "Authorization",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
