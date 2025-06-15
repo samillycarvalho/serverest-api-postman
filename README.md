@@ -99,7 +99,7 @@
     </tr>
     <tr>
       <td>Carrinho</td>
-      <td>⬜ Em andamento</td>
+      <td>✅ Testado</td>
     </tr>
     <tr>
  
