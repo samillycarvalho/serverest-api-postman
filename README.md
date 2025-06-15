@@ -102,9 +102,7 @@
       <td>⬜ Em andamento</td>
     </tr>
     <tr>
-      <td>Pedidos</td>
-      <td>⬜ Em andamento</td>
-    </tr>
+ 
   </table>
 
 </body>
